@@ -1,20 +1,19 @@
 (ns misaki.compiler.lesscss.core
   (:use
-    [misaki.config :only [*config*]])
+    [misaki.util.file :only [has-extension? remove-extension]])
   (:require
-    [clojure.java.io]
-    [misaki.compiler.default.core]
-    [misaki.config]
-    [misaki.util.file])
+    [clojure.java.io :as cji]
+    [misaki.server]
+    [misaki.compiler.default.core])
   (:import
-    [org.lesscss LessCompiler]
-    [java.io File]))
+    [org.lesscss LessCompiler]))
 
 (defn is-lesscss?
   [config file]
   (and (= (.getParentFile file)
-          (clojure.java.io/file (:template-dir config) (:lesscss-in-dir config)))
-       (misaki.util.file/has-extension? ".less" file)))
+          (cji/file (:template-dir config)
+                    (:lesscss-in-dir config)))
+       (has-extension? ".less" file)))
 
 (defn compile-lesscss
   [text]
@@ -26,7 +25,7 @@
   [config file]
   {:status true
    :filename (str (:lesscss-out-dir config)
-                  (misaki.util.file/remove-extension file))
+                  (remove-extension file))
    :body (compile-lesscss (slurp file))})
 
 (defn -extension
