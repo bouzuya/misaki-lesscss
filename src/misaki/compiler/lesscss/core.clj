@@ -3,8 +3,7 @@
     [misaki.util.file :only [has-extension? remove-extension]])
   (:require
     [clojure.java.io :as cji]
-    [misaki.server]
-    [misaki.compiler.default.core])
+    [misaki.server])
   (:import
     [org.lesscss LessCompiler]))
 
@@ -30,19 +29,17 @@
 
 (defn -extension
   []
-  (cons :less (misaki.compiler.default.core/-extension)))
+  [:less])
 
 (defn -config
   [config]
   (merge {:lesscss-in-dir "less/"
           :lesscss-out-dir "css/"}
-         (misaki.compiler.default.core/-config config)))
+         config))
 
 (defn -compile
   [config file]
-  (if (is-lesscss? config file)
-    (compile-lesscss-file config file)
-    (misaki.compiler.default.core/-compile config file)))
+  (compile-lesscss-file config file))
 
 (defn -main
   [& args]
