@@ -1,4 +1,4 @@
-(defproject org.clojars.bouzuya/misaki-lesscss "0.1.1"
+(defproject org.clojars.bouzuya/misaki-lesscss "0.1.2"
   :description "misaki-lesscss is one of misaki's compiler plugin using 'LESS CSS Compiler for Java'."
   :url "https://github.com/bouzuya/misaki-lesscss"
   :license {:name "Eclipse Public License"

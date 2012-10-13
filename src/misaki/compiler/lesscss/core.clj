@@ -39,7 +39,8 @@
 
 (defn -compile
   [config file]
-  (compile-lesscss-file config file))
+  (when (is-lesscss? config file)
+    (compile-lesscss-file config file)))
 
 (defn -main
   [& args]
